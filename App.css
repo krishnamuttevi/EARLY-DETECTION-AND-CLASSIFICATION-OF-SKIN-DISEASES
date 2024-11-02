@@ -1,0 +1,156 @@
+@font-face {
+  font-family: "HansonBold"; /* This can be any name you prefer */
+  src: local("HansonBold"),
+    url("D:\swastik\pythons\projects\skindiseasedetection\skin-disease-frontend\src\Hanson-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "HelveticaNeueBold"; /* This can be any name you prefer */
+  src: local("HelveticaNeueBold"),
+    url('D:\swastik\pythons\projects\skindiseasedetection\skin-disease-frontend\src\HelveticaNeueBold.otf') format("truetype");
+}
+@font-face {
+  font-family: "HelveticaNeueRoman"; /* Can be any text */
+  src: local("HelveticaNeueRoman"),
+       url("D:\swastik\pythons\projects\skindiseasedetection\skin-disease-frontend\src\HelveticaNeueRoman.otf") format("opentype");
+}
+@font-face {
+  font-family: "HelveticaNeueMedium"; /* Can be any text */
+  src: local("HelveticaNeueMedium"),
+       url("D:\swastik\pythons\projects\skindiseasedetection\skin-disease-frontend\src\HelveticaNeueMedium.otf") format("opentype");
+}
+@font-face {
+  font-family: "HelveticaNeueThin"; /* Can be any text */
+  src: local("HelveticaNeueThin"),
+       url("D:\swastik\pythons\projects\skindiseasedetection\skin-disease-frontend\src\HelveticaNeueThin.otf") format("opentype");
+}
+
+
+/* General Styling */
+.app-wrapper {
+  background-color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('D:\swastik\pythons\projects\skindiseasedetection\Slide 16_9 - 3.png'); /* Use your uploaded image path */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.uploaded-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Set max width based on your layout */
+  height: auto;
+  overflow: hidden;
+  border: 2px solid #4f2f22; /* Brown border */
+  border-radius: 8px;
+  background-color: #cda487; /* Background color as shown in the design */
+  padding: 10px;
+}
+
+.uploaded-image {
+  width: 150%;
+  max-width: 500px;
+  border-radius: 67px;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 7.2%;
+  right: 7%;
+
+}
+
+h2{
+  position: absolute;
+  top: 10%;
+  
+}
+
+.likelihood{
+  position: absolute;
+  top: 18%;
+  /* font-size: ; */
+}
+
+.predict-btn {
+  background-color: #4f2f22; /* Custom color */
+  border-color: #4f2f22;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 10px 30px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 2%;
+  right: 15%;
+}
+
+.predict-btn:hover {
+  background-color: #3e261a;
+  border-color: #3e261a;
+}
+
+.upload-btn {
+  background-color: #9B613C; /* Custom color */
+  border-color: #9B613C;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 10px 30px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-right: 10px; /* Adjust spacing if needed */
+  position: absolute;
+  bottom: 0.9%;
+  right: 22%;
+}
+
+.upload-btn:hover {
+  background-color: #855133;
+  border-color: #855133;
+}
+
+#custom-heading{
+  position: absolute;
+  top: 30%;
+  font-size: 100px;
+  color: #9B613C;
+  left: 5%;
+  top:10%;
+  font-family: HelveticaNeueBold;
+}
+
+.logo{
+  position: absolute;
+  top: 0%;
+}
+
+.detector-box{
+  font-size: 50px;
+  font-family: HelveticaNeueRoman;
+  color: #471E1A;
+  margin: 6%;
+  padding: 0px 160px 0px 0px;
+  background-color: #E8B693;
+  position: absolute;
+  top: 30%;
+  left: 0%;
+}
+
+.note{
+  position: absolute;
+  top: 75%;
+  left: 6%;
+  font-size: 20px;
+  font-family: HelveticaNeueThin;
+
+}
+
+.subtitle{
+  position: absolute;
+  top: 55%;
+  left: 6%;
+  font-family: HansonBold;
+  font-size: 20px;
+  color: #471E1A;
+}

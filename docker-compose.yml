@@ -1,0 +1,126 @@
+version: '3'
+services:
+  zookeeper:
+    image: zookeeper:3.9.1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - bde-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"  # Kafka internal communication
+      - "29092:29092"  # Kafka external communication (host)
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092, PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092, PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - bde-network
+
+  hbase:
+    image: harisekhon/hbase:latest
+    container_name: hbase
+    ports:
+      - "16000:16000"
+      - "16010:16010"
+      - "16020:16020"
+      - "16030:16030"
+      - "9096:9096"
+      - "9090:9090"
+    environment:
+      HBASE_HOST : localhost
+      HBASE_TABLE : your_table_name
+      HBASE_PORT : 9096
+      HBASE_ZOOKEEPER_PORT : 2181
+      HBASE_ZOOKEEPER_QUORUM : zookeeper
+      HBASE_CONF_hbase_cluster_distributed: "true"
+      HBASE_CONF_hbase_regionserver_port: 16020
+      HBASE_CONF_hbase_master_port: 16010
+      HBASE_CONF_hbase_zookeeper_quorum: zookeeper
+      HBASE_CONF_hbase_zookeeper_property_clientPort: 2181
+      HBASE_CONF_hbase_rootdir: file:///hbase-data
+    volumes:
+      - hbase-data:/hbase-data
+    networks:
+      - bde-network
+    
+  spark-master:
+    image: bitnami/spark:latest
+    container_name: spark-master
+    hostname: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_DIRS=/tmp
+      - SPARK_LOG_DIR=/opt/bitnami/spark/logs
+    ports:
+      - "7077:7077"
+      - "8080:8080"  # Spark Web UI
+    networks:
+      - bde-network
+
+  spark-worker-1:
+    image: bitnami/spark:latest
+    container_name: spark-worker-1
+    hostname: spark-worker-1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2G
+    ports:
+      - "8081:8081"  # Spark Worker UI
+    depends_on:
+      - spark-master
+    networks:
+      - bde-network
+
+  spark-worker-2:
+    image: bitnami/spark:latest
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2G
+    ports:
+      - "8082:8082"  # Spark Worker UI
+    depends_on:
+      - spark-master
+    networks:
+      - bde-network
+
+  spark-submit:
+    image: bitnami/spark:latest
+    container_name: spark-submit
+    hostname: spark-submit
+    environment:
+      - SPARK_MODE=client
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+      - spark-worker-1
+      - spark-worker-2
+    networks:
+      - bde-network
+    entrypoint: tail -f /dev/null
+
+networks:
+  bde-network:
+    driver: bridge
+
+volumes:
+  hbase-data:
