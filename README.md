@@ -36,20 +36,26 @@ The system assists healthcare professionals and individuals by identifying commo
 ```bash
 git clone https://github.com/krishnamuttevi/EARLY-DETECTION-AND-CLASSIFICATION-OF-SKIN-DISEASES.git
 cd EARLY-DETECTION-AND-CLASSIFICATION-OF-SKIN-DISEASES
+```
 
-📦 Step 2: Install Dependencies
+### 📦 Step 2: Install Dependencies
+```
 pip install -r requirements.txt
+```
 
-
-▶️ Step 3: Run the Application
+###  ▶️ Step 3: Run the Application
+```
 python app.py
+```
 
 Then open your browser and go to:
+```
 http://127.0.0.1:5000
+```
 
+### 📁 Project Structure
+```
 
-📁 Project Structure
-'''
 EARLY-DETECTION-AND-CLASSIFICATION-OF-SKIN-DISEASES/
 ├── app.py                     # Flask app entry point
 ├── model/                     # Trained CNN model files
@@ -59,12 +65,13 @@ EARLY-DETECTION-AND-CLASSIFICATION-OF-SKIN-DISEASES/
 ├── requirements.txt           # Python dependencies
 └── README.md                  # Project documentation
 
-'''
+```
 
-⚠️ Disclaimer
+### ⚠️ Disclaimer
+
 This project is intended for educational and research purposes only and should not be used for real-world medical diagnostics.
 Always consult a qualified medical professional for any health-related concerns.
 
-🤝 Contributing
+### 🤝 Contributing
 Contributions are welcome!
 Feel free to fork this repository, open an issue, or submit a pull request.
